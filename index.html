@@ -71,7 +71,7 @@
         async function fetchUser() {
             const token = getTokenFromURL();
             if (!token) {
-                document.getElementById("usernameDisplay").innerHTML = 'No token found! <button onclick="window.location.href = \'http://localhost:8080/oauth2/authorization/okta\'">Login</button>';
+                document.getElementById("usernameDisplay").innerHTML = 'No token found! <button onclick="window.location.href = \'http://localhost:8080/auth/oauth/login\'">Login</button>';
                 return;
             }
 
@@ -93,7 +93,7 @@
                 document.getElementById("usernameDisplay").innerText = `Welcome, ${user.fullName}! Your username is ${user.username}. Your email is ${user.email}. Your roles are ${roles}. Your provider is ${user.provider}. Your premium status is ${user.isPremium ? 'Yes' : 'No'}.`;
 
             } catch (error) {
-                document.getElementById("usernameDisplay").innerHTML = `Error: ${error.message} <button onclick="window.location.href = 'http://localhost:8080/auth/oauth/login'">Login</button>`;
+                document.getElementById("usernameDisplay").innerHTML = `Error: ${error.message} <button onclick="window.location.href = 'http://localhost:8080/auth/oauth/login'">Login 1</button>`;
             }
         }
 

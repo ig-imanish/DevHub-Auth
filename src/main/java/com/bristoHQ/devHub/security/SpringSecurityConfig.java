@@ -52,7 +52,7 @@ public class SpringSecurityConfig {
                                                                 "/login", "/register", "/error" , "/auth/oauth/login" , "/oauth-success",
                                                                 "/v3/api-docs/**", 
                     "/swagger-ui/**", 
-                    "/swagger-ui.html")
+                    "/swagger-ui.html", "/api/v1/users/byToken")
                                                 .permitAll()
                                                 .requestMatchers("/api/**").authenticated()
 

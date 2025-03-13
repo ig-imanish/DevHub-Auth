@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bristoHQ.devHub.models.User;
+import com.bristoHQ.devHub.dto.UserDTO;
 import com.bristoHQ.devHub.models.role.Role;
 import com.bristoHQ.devHub.models.role.RoleName;
 import com.bristoHQ.devHub.services.RoleService;
@@ -29,22 +29,22 @@ public class AdminRestController {
     }
 
     @GetMapping("/getAllUsers")
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/getAllUsers/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public UserDTO getUserById(@PathVariable Long id) {
         return userService.findById(id);
     }
 
     @GetMapping("/getAllUsers/email/{email}")
-    public User getUserByEmail(@PathVariable String email) {
+    public UserDTO getUserByEmail(@PathVariable String email) {
         return userService.findByEmail(email);
     }
 
     @GetMapping("/getAllUsers/username/{username}")
-    public User getUserByUsername(@PathVariable String username) {
+    public UserDTO getUserByUsername(@PathVariable String username) {
         return userService.findByUsername(username);
     }
 

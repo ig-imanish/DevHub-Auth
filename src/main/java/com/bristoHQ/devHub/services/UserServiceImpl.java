@@ -3,6 +3,7 @@ package com.bristoHQ.devHub.services;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import com.bristoHQ.devHub.dto.BearerToken;
 import com.bristoHQ.devHub.dto.LoginDto;
 import com.bristoHQ.devHub.dto.RegisterDto;
+import com.bristoHQ.devHub.dto.UserDTO;
 import com.bristoHQ.devHub.models.BlacklistedToken;
 import com.bristoHQ.devHub.models.User;
 import com.bristoHQ.devHub.models.role.Role;
@@ -47,6 +49,9 @@ public class UserServiceImpl implements UserService {
     private JwtUtilities jwtUtilities;
 
     @Autowired
+    private DTOService dtoService;
+
+    @Autowired
     private BlacklistedTokenRepository blacklistedTokenRepository;
 
     @Override
@@ -55,8 +60,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saverUser(User user) {
-        return iUserRepository.save(user);
+    public UserDTO saveUser(User user) {
+        return dtoService.convertUserToUserDTO(iUserRepository.save(user));
+    }
+
+    @Override
+    public UserDTO saveUser(UserDTO user) {
+        return dtoService.convertUserToUserDTO(iUserRepository.save(dtoService.convertUserDTOToUser(user)));
     }
 
     // @Override
@@ -128,11 +138,35 @@ public class UserServiceImpl implements UserService {
             return new ResponseEntity<>("Username is already taken!", HttpStatus.SEE_OTHER);
         }
 
+        // if (registerDto.getUsername().length() <= 3 ||
+        //         registerDto.getUsername().length() > 20) {
+        //     return new ResponseEntity<>("username must be between 3 and 20 characters",
+        //             HttpStatus.BAD_REQUEST);
+        // }
+        // if (registerDto.getPassword().length() <= 6 ||
+        //         registerDto.getPassword().length() > 44) {
+        //     return new ResponseEntity<>("password must be between 6 and 20 characters",
+        //             HttpStatus.BAD_REQUEST);
+        // }
+        // if (registerDto.getFullName().length() <= 3 ||
+        //         registerDto.getFullName().length() > 20) {
+        //     return new ResponseEntity<>("full name must be between 3 and 20 characters",
+        //             HttpStatus.BAD_REQUEST);
+        // }
+        // if (registerDto.getEmail().length() <= 4 || registerDto.getEmail().length() > 20) {
+        //     return new ResponseEntity<>("email must be between 4 and 20 characters",
+        //             HttpStatus.BAD_REQUEST);
+        // }
+        if (!registerDto.getUsername().startsWith("@")) {
+            registerDto.setUsername("@" + registerDto.getUsername());
+        }
+
         User user = new User();
         user.setEmail(registerDto.getEmail());
         user.setFullName(registerDto.getFullName());
         user.setUsername(registerDto.getUsername());
         user.setProvider(registerDto.getProvider());
+        user.setAccountCreatedAt(new Date());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 
         // Assign role with username
@@ -167,40 +201,45 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserDetails(String actualToken) {
+    public UserDTO getUserDetails(String actualToken) {
         String email = jwtUtilities.extractUsername(actualToken);
-        return iUserRepository.findByEmail(email).isPresent() ? iUserRepository.findByEmail(email).get() : null;
+
+        return dtoService.convertUserToUserDTO(
+                iUserRepository.findByEmail(email).isPresent() ? iUserRepository.findByEmail(email).get() : null);
     }
 
     @Override
-    public User findByEmail(String email) {
-        return iUserRepository.findByEmail(email).isPresent() ? iUserRepository.findByEmail(email).get() : null;
+    public UserDTO findByEmail(String email) {
+        return dtoService.convertUserToUserDTO(
+                iUserRepository.findByEmail(email).isPresent() ? iUserRepository.findByEmail(email).get() : null);
     }
 
     @Override
-    public User findByUsername(String username) {
-        return iUserRepository.findByUsername(username).isPresent() ? iUserRepository.findByUsername(username).get()
-                : null;
+    public UserDTO findByUsername(String username) {
+        return dtoService.convertUserToUserDTO(
+                iUserRepository.findByUsername(username).isPresent() ? iUserRepository.findByUsername(username).get()
+                        : null);
     }
 
     @Override
-    public User findByEmailOrUsername(String email, String username) {
-        return iUserRepository.findByEmailOrUsername(email, username).isPresent()
+    public UserDTO findByEmailOrUsername(String email, String username) {
+        return dtoService.convertUserToUserDTO(iUserRepository.findByEmailOrUsername(email, username).isPresent()
                 ? iUserRepository.findByEmailOrUsername(email, username).get()
-                : null;
+                : null);
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         if (iUserRepository.findAll().isEmpty()) {
             return null;
         }
-        return iUserRepository.findAll();
+        return dtoService.convertUserToUserDTO(iUserRepository.findAll());
     }
 
     @Override
-    public User findById(Long id) {
-        return iUserRepository.findById(id) == null ? null : iUserRepository.findById(id);
+    public UserDTO findById(Long id) {
+        return dtoService
+                .convertUserToUserDTO(iUserRepository.findById(id) == null ? null : iUserRepository.findById(id));
     }
 
     @Override
@@ -248,5 +287,43 @@ public class UserServiceImpl implements UserService {
         }
         return false;
 
+    }
+
+    @Override
+    public String newJwtToken(String emailOrUsername) {
+        User user = iUserRepository.findByEmailOrUsername(emailOrUsername, emailOrUsername).get();
+        List<String> rolesNames = new ArrayList<>();
+        user.getRoles().forEach(r -> rolesNames.add(r.getRoleName()));
+        return jwtUtilities.generateToken(user.getUsername(), rolesNames);
+    }
+
+    public UserDTO updateUsername(String oldUsername, String newUsername){
+        Optional<User> user = iUserRepository.findByUsername(oldUsername);
+        if(user.isPresent()){
+            user.get().setUsername(newUsername);
+            updateUsernameInRole(newUsername);
+            saveUser(user.get());
+            return dtoService.convertUserToUserDTO(user.get());
+        }
+        return null;
+    }
+
+    public UserDTO updateEmail(String newEmail){
+        Optional<User> user = iUserRepository.findByUsername(newEmail);
+        if(user.isPresent()){
+            user.get().setEmail(newEmail);
+            return dtoService.convertUserToUserDTO(user.get());
+        }
+        return null;
+    }
+
+    public Role updateUsernameInRole(String username){
+        Optional<User> user = iUserRepository.findByUsername(username);
+        if(user.isPresent()){
+            Role role = user.get().getRoles().get(0);
+            role.setUsername(user.get().getUsername());
+            return iRoleRepository.save(role);
+        }
+        return null;
     }
 }

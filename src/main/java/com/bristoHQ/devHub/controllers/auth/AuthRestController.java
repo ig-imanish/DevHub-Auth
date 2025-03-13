@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bristoHQ.devHub.dto.BearerToken;
 import com.bristoHQ.devHub.dto.LoginDto;
 import com.bristoHQ.devHub.dto.RegisterDto;
-import com.bristoHQ.devHub.models.User;
+import com.bristoHQ.devHub.dto.UserDTO;
 import com.bristoHQ.devHub.security.JwtUtilities;
 import com.bristoHQ.devHub.services.UserService;
 
@@ -57,7 +57,7 @@ public class AuthRestController {
     public ResponseEntity<Boolean> isAuthenticatedByToken(@RequestHeader("Authorization") String token) {
         // Extract token value from "Bearer <token>"
         String actualToken = token.startsWith("Bearer ") ? token.substring(7) : token;
-        User user = userService.getUserDetails(actualToken);
+        UserDTO user = userService.getUserDetails(actualToken);
         return ResponseEntity.ok(user != null);
     }
 

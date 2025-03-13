@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import com.bristoHQ.devHub.dto.MessageResponseDTO;
-import com.bristoHQ.devHub.models.User;
+import com.bristoHQ.devHub.dto.UserDTO;
 import com.bristoHQ.devHub.models.premium.RedeemCode;
 import com.bristoHQ.devHub.repositories.RedeemCodeRepository;
 
@@ -17,10 +17,11 @@ public class PremiumService {
 
     private UserServiceImpl userService;
     private RedeemCodeRepository redeemCodeRepository;
+    private DTOService dtoService;
 
     public MessageResponseDTO redeemPremium(String code, String emailOrUsername) {
 
-        User user = userService.findByEmailOrUsername(emailOrUsername, emailOrUsername);
+        UserDTO user = userService.findByEmailOrUsername(emailOrUsername, emailOrUsername);
         if (user == null) {
             return new MessageResponseDTO(false, "User not found", new Date());
         }
@@ -42,7 +43,7 @@ public class PremiumService {
 
         user.setPremium(true);
         user.setRedeemCode(redeemCode);
-        userService.saverUser(user);
+        userService.saveUser(dtoService.convertUserDTOToUser(user));
         return new MessageResponseDTO(true, emailOrUsername + " have redeemed Premium successfully!", new Date());
     }
 }

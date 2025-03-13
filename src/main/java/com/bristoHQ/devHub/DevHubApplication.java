@@ -13,7 +13,6 @@ public class DevHubApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(DevHubApplication.class, args);
-
         System.out.println("DevHubApplication started");
     }
 

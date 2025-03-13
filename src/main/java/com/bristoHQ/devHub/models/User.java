@@ -2,6 +2,7 @@ package com.bristoHQ.devHub.models;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -42,6 +43,8 @@ public class User implements UserDetails {
     String provider;
     private boolean isPremium;
     private RedeemCode redeemCode;
+
+    private Date accountCreatedAt;
 
     public User(String username, String email, String password, List<Role> roles) {
         this.username = username;

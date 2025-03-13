@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.bristoHQ.devHub.dto.LoginDto;
 import com.bristoHQ.devHub.dto.RegisterDto;
+import com.bristoHQ.devHub.dto.UserDTO;
 import com.bristoHQ.devHub.models.User;
 import com.bristoHQ.devHub.models.role.Role;
 
@@ -19,17 +20,17 @@ public interface UserService {
 
   Role saveRole(Role role);
 
-  User saverUser(User user);
+  UserDTO saveUser(User user);
 
-  public User getUserDetails(String actualToken);
+  public UserDTO getUserDetails(String actualToken);
 
-  public User findByEmail(String email);
+  public UserDTO findByEmail(String email);
 
-  public User findByUsername(String username);
+  public UserDTO findByUsername(String username);
 
-  List<User> getAllUsers();
+  List<UserDTO> getAllUsers();
 
-  User findById(Long id);
+  UserDTO findById(Long id);
 
   void blacklistToken(String token);
 
@@ -45,6 +46,9 @@ public interface UserService {
 
   public void logout(HttpServletRequest request);
 
-  public User findByEmailOrUsername(String email, String username);
+  public UserDTO findByEmailOrUsername(String email, String username);
 
+  public UserDTO saveUser(UserDTO user);
+
+  public String newJwtToken(String emailOrUsername);
 }

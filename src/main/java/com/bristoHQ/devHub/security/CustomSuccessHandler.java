@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import com.bristoHQ.devHub.dto.RegisterDto;
-import com.bristoHQ.devHub.models.User;
+import com.bristoHQ.devHub.dto.UserDTO;
 import com.bristoHQ.devHub.repositories.UserRepository;
 import com.bristoHQ.devHub.services.UserServiceImpl;
 
@@ -55,7 +55,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 				user.setUsername(email);
 				user.setProvider("GOOGLE");
 				user.setFullName(userDetails.getAttribute("name"));
-				user.setPassword((UUID.randomUUID().toString()));
+				user.setPassword(("NoPass"));
 
 				System.out.println("User Details: in CustomSuccessHandler - " + user);
 				userService.register(user);
@@ -64,7 +64,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
 		System.out.println("1 email " + email);
 		List<String> rolesNames = new ArrayList<>();
-		User user = userService.findByEmail(email);
+		UserDTO user = userService.findByEmail(email);
 
 		System.out.println("user " + user);
 		user.getRoles().forEach(r -> rolesNames.add(r.getRoleName()));
