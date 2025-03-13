@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAuth Success</title>
+</head>
+<body>
+    <h2 id="usernameDisplay">Loading...</h2>
+
+    <script>
+        // Extract token from URL and store in localStorage
+        function getTokenFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get("token");
+
+            if (token) {
+                localStorage.setItem("authToken", token);
+                console.log("Token stored successfully!");
+            }
+        }
+
+        // Fetch user details using token
+        async function fetchUser() {
+            const token = localStorage.getItem("authToken");
+
+            if (!token) {
+                document.getElementById("usernameDisplay").innerText = "No token found!";
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:8080/me", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(await response.text());
+                }
+
+                const user = await response.json();
+                document.getElementById("usernameDisplay").innerText = `Welcome, ${user.fullName}!`;
+
+            } catch (error) {
+                document.getElementById("usernameDisplay").innerText = `Error: ${error.message}`;
+            }
+        }
+
+        // Run functions on page load
+        getTokenFromURL();
+        fetchUser();
+    </script>
+</body>
+</html>

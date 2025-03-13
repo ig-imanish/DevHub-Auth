@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    home hai ye! <div th:if="${username}">
+        <span th:text="${username}"></span>
+    </div>
+    <div th:unless="${username}">
+        <span>please login <a th:href="@{/user/login}">Login here</a> </span>
+    </div>
+</body>
+
+</html>

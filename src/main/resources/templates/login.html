@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login with Google</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            width: 400px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-2px);
+        }
+        
+        .logo {
+            margin-bottom: 30px;
+        }
+        
+        .logo img {
+            width: 120px;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+        
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            color: #444;
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .google-btn:hover {
+            background-color: #f8f8f8;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .google-icon {
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        
+        .google-icon .fa-google {
+            background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .footer a {
+            color: #4285f4;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://imghost.net/ib/0ekrsT3EBByCiyd_1741773835.jpg" alt="Logo">
+        </div>
+        <h1>We care your privicy</h1>
+        <p>Sign in to your account using your Google account!</p>
+        
+        <a href="/oauth2/authorization/google" class="google-btn">
+            <span class="google-icon">
+                <i class="fab fa-google"></i>
+            </span>
+            Sign in with Google
+        </a>
+        
+        <div class="footer">
+            <p>Need help? <a href="#">Contact Support</a></p>
+        </div>
+    </div>
+</body>
+</html>

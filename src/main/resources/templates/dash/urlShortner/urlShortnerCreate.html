@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>dashboard
+    </title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/src/main/resources/static/css/bootstrap.min.css">
+    <!----css3---->
+    <link rel="stylesheet" href="/src/main/resources/static/css/custom.css">
+    <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!--google material icon-->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=JetBrains+Mono:wght@100..800&family=Poetsen+One&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+    </style>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="body-overlay"></div>
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3><img src="/src/main/resources/static/assets/jpeg/logo.jpg" class="img-fluid" /><span>BristoHQ</span>
+                </h3>
+            </div>
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#" class="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a>
+                </li>
+
+
+                <li class="dropdown">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="material-icons">code</i><span>CodeShare</span></a>
+                    <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Create New</a>
+                        </li>
+                        <li>
+                            <a href="#">Your Snipts</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="material-icons">link</i><span>URL Shortener</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu2">
+                        <li>
+                            <a href="#">Create Url</a>
+                        </li>
+                        <li>
+                            <a href="#">Your Urls</a>
+                        </li>
+                        <li>
+                            <a href="#">Tracking</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="material-icons">vpn_key</i>
+
+
+                        <span>EncodeX</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu3">
+
+                        <li><a href="#">Base64 Encoder/Decoder</a></li>
+                        <li><a href="#">URL Encoder/Decoder</a></li>
+                        <li><a href="#">HTML Entity Encoder/Decoder</a></li>
+                        <li><a href="#">MD5 Hasher</a></li>
+                        <li><a href="#">SHA-1 Hasher</a></li>
+                        <li><a href="#">SHA-256 Hasher</a></li>
+                        <li><a href="#">SHA-512 Hasher</a></li>
+                        <li><a href="#">AES Encoder/Decoder</a></li>
+                        <li><a href="#">JSON Encoder/Decoder</a></li>
+                        <li><a href="#">XML Encoder/Decoder</a></li>
+                        <li><a href="#">UTF-8 Encoder/Decoder</a></li>
+                        <li><a href="#">Unicode Encoder/Decoder</a></li>
+                        <li><a href="#">Caesar Cipher Encoder/Decoder</a></li>
+                        <li><a href="#">Vigenère Cipher Encoder/Decoder</a></li>
+                        <li><a href="#">RC4 Encoder/Decoder</a></li>
+
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="material-icons">security</i><span>SafeVault</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu4">
+                        <li>
+                            <a href="#">Create SafeVault</a>
+                        </li>
+                        <li>
+                            <a href="#">View SafeVault</a>
+                        </li>
+                        <li>
+                            <a href="#">Reset SafeVault</a>
+                        </li>
+                        <li>
+                            <a href="#">Change Pin</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="material-icons">palette</i><span>SnippetShot</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu5">
+                        <li>
+                            <a href="#">Create SnippetShot</a>
+                        </li>
+                        <li>
+                            <a href="#">Saved SnippetShot</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                <li class="dropdown">
+                    <a href="#pageSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="material-icons">chat</i><span>DevAIChat</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu6">
+                        <li>
+                            <a href="#">ChatAI</a>
+                        </li>
+                        <li>
+                            <a href="#">ImageAI</a>
+                        </li>
+                        <li>
+                            <a href="#">VoiceAI</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="dropdown">
+                    <a href="#pageSubmenu7" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="material-icons">search</i><span>StackSearch</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu7">
+                        <li>
+                            <a href="#">Search Problems</a>
+                        </li>
+                        <li>
+                            <a href="#">Saved Problems</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#pageSubmenu8" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="material-icons">cloud_upload</i><span>PicStore</span></a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu8">
+                        <li>
+                            <a href="#">Host New Image</a>
+                        </li>
+                        <li>
+                            <a href="#">Saved Images</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="">
+                    <a href="#"><i class="material-icons">api</i><span>FakeAPI</span></a>
+                </li>
+
+                <li class="">
+                    <a href="#"><i class="material-icons">send</i><span>APIForm</span></a>
+                </li>
+
+                <li class="">
+                    <a href="#"><i class="material-icons">access_time</i><span>TempAPIKey</span></a>
+                </li>
+                <li class="">
+                    <a href="#"><i class="material-icons">alternate_email</i><span>QuickMail</span></a>
+                </li>
+
+
+                <div class="small-screen navbar-display">
+                    <li class="d-lg-none d-md-block d-xl-none d-sm-block">
+                    </li>
+                    <li class="d-lg-none d-md-block d-xl-none d-sm-block">
+                        <a href="#"><i class="material-icons">settings</i><span>setting</span></a>
+                    </li>
+                </div>
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <div class="top-navbar">
+                <nav class="navbar navbar-expand-lg">
+                    <div class="container-fluid">
+
+                        <button type="button" id="sidebarCollapse" class="d-xl-block d-lg-block d-md-mone d-none">
+                            <span class="material-icons">arrow_back_ios</span>
+                        </button>
+
+                        <a class="navbar-brand" href="#"> Dashboard </a>
+
+                        <button class="d-inline-block d-lg-none ml-auto more-button" type="button"
+                            data-toggle="collapse" data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="material-icons">more_vert</span>
+                        </button>
+
+                        <div class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none"
+                            id="navbarSupportedContent">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-item active">
+                                    <a href="#" class="nav-link" data-toggle="dropdown">
+                                        <span class="material-icons">format_quote</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span class="material-icons">settings</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="main-content">
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <h1>Create Short URL</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <form action="https://localhost:8080/api/v1/shorten" method="post" class="col s12"
+                        id="shortUrlForm">
+                        <div class="input-field">
+                            <label for="originalUrl">Enter Original URL</label>
+                            <input type="text" id="originalUrl" class="validate" placeholder="https://www.google.com"
+                                required>
+                        </div>
+                        <div class="input-field">
+                            <label for="shortUrl">Custom Short URL</label>
+                            <input type="text" id="shortUrl" class="validate" placeholder="custom-name">
+                        </div>
+                        <div class="input-field">
+                            <label for="expiryDateTime">Expiry Date & Time</label>
+                            <input type="datetime-local" id="expiryDateTime" class="validate">
+                        </div>
+                        <button class="btn btn-primary" type="submit">Generate</button>
+                        <small class="text-muted">Note : We add some random 4 digit characters to the Custom Name for
+                            free users.</small>
+                    </form>
+                </div>
+
+                <div class="row">
+                    <div class="row-lg-5 col-md-12">
+                        <div class="card" style="min-height: auto">
+                            <div class="card-header card-header-text">
+                                <h4 class="card-title">Premium Features</h4>
+                            </div>
+                            <div class="card-content">
+                                # Premium Features are not available for free users.
+                                <br>
+                                <br>
+                                # Custom Name for Short URL is not available for free users.
+                                <br>
+                                <br>
+                                # Lifetime Expiry Date & Time is not available for free users.
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="footer bg-dark text-light py-3">
+                    <div class="container">
+                        <div class="row">
+                            <!-- About Section -->
+                            <div class="col-lg-3 col-md-6 mb-3">
+                                <h6 class="fw-bold">About DevHub</h6>
+                                <p class="small mb-1">
+                                    DevHub is a centralized platform offering essential tools for developers.
+                                </p>
+                                <p class="small mb-0">📍 Punjab, India</p>
+                                <p class="small">📧 support@bristohq.me</p>
+                            </div>
+
+                            <!-- Quick Links -->
+                            <div class="col-lg-2 col-md-6 mb-3">
+                                <h6 class="fw-bold">Quick Links</h6>
+                                <ul class="list-unstyled small mb-0">
+                                    <li><a href="#" class="text-light text-decoration-none">Home</a></li>
+                                    <li><a href="#" class="text-light text-decoration-none">Company</a></li>
+                                    <li><a href="#" class="text-light text-decoration-none">Portfolio</a></li>
+                                    <li><a href="#" class="text-light text-decoration-none">Blog</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Resources -->
+                            <div class="col-lg-2 col-md-6 mb-3">
+                                <h6 class="fw-bold">Resources</h6>
+                                <ul class="list-unstyled small mb-0">
+                                    <li><a href="#" class="text-light text-decoration-none">Docs</a></li>
+                                    <li><a href="#" class="text-light text-decoration-none">API</a></li>
+                                    <li><a href="#" class="text-light text-decoration-none">Support</a></li>
+                                    <li><a href="#" class="text-light text-decoration-none">FAQs</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Newsletter & Social Links -->
+                            <div class="col-lg-5 col-md-6 mb-3">
+                                <h6 class="fw-bold">Stay Updated</h6>
+                                <form class="d-flex">
+                                    <input type="email" class="form-control form-control-sm me-2"
+                                        placeholder="Enter email" required>
+                                    <button class="btn btn-primary btn-sm">Subscribe</button>
+                                </form>
+                                <div class="social-icons mt-2">
+                                    <a href="#" class="text-light me-2"><i class="fab fa-facebook"></i></a>
+                                    <a href="#" class="text-light me-2"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="text-light me-2"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#" class="text-light"><i class="fab fa-github"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer Bottom -->
+                        <div class="row mt-2">
+                            <div class="col text-center">
+                                <p class="small mb-0">© 2025 DevHub | <a href="#"
+                                        class="text-light text-decoration-none">@BristoHQ</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/src/main/resources/static/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/src/main/resources/static/js/popper.min.js"></script>
+    <script src="/src/main/resources/static/js/bootstrap.min.js"></script>
+    <script src="/src/main/resources/static/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $('#content').toggleClass('active');
+            });
+            $('.more-button,.body-overlay').on('click', function () {
+                $('#sidebar,.body-overlay').toggleClass('show-nav');
+            });
+        });
+    </script>
+
+    <script>
+        document.getElementById("shortUrlForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const originalUrl = document.getElementById("originalUrl").value;
+            const customName = document.getElementById("shortUrl").value;
+            const expiryDateTime = document.getElementById("expiryDateTime").value;
+
+            let expirationTime = expiryDateTime ? new Date(expiryDateTime).toString() : null;
+
+            const requestBody = {
+                originalUrl: originalUrl,
+                customName: customName || undefined,
+                expirationTime: expirationTime || undefined
+            };
+
+            console.log(requestBody);
+            // You can now send requestBody to your backend via fetch() or Axios
+        });
+    </script>
+</body>
+
+</html>
