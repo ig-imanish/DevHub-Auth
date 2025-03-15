@@ -44,6 +44,22 @@ public class DTOService {
         if(user.getAccountCreatedAt() != null) {
             userDTO.setAccountCreatedAt(user.getAccountCreatedAt());
         }
+        if (user.getUserAvatar() != null) {
+            userDTO.setUserAvatar(user.getUserAvatar());
+        }
+        
+        if (user.getUserAvatarpublicId() != null) {
+            userDTO.setUserAvatarpublicId(user.getUserAvatarpublicId());
+        }
+        
+        if (user.getUserBanner() != null) {
+            userDTO.setUserBanner(user.getUserBanner());
+        }
+        
+        if (user.getUserBannerpublicId() != null) {
+            userDTO.setUserBannerpublicId(user.getUserBannerpublicId());
+        }
+        
         return userDTO;
     }
 

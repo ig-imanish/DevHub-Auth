@@ -41,6 +41,12 @@ public class UserDTO {
     private String otp;
     private LocalDateTime otpGeneratedTime;
 
+    private String userAvatar;
+    private String userAvatarpublicId;
+
+    private String userBanner;
+    private String userBannerpublicId;
+
     public UserDTO(String username, String email,List<Role> roles) {
         this.username = username;
         this.email = email;

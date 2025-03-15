@@ -318,6 +318,22 @@ public class UserServiceImpl implements UserService {
             if (updatedUser.getGender() != null) {
                 user.setGender(updatedUser.getGender());
             }
+
+            if (updatedUser.getUserAvatar() != null) {
+                user.setUserAvatar(updatedUser.getUserAvatar());
+            }
+            if (updatedUser.getUserAvatarpublicId() != null) {
+                user.setUserAvatarpublicId(updatedUser.getUserAvatarpublicId());
+            }
+            
+            if (updatedUser.getUserBanner() != null) {
+                user.setUserBanner(updatedUser.getUserBanner());
+            }
+            if (updatedUser.getUserBannerpublicId() != null) {
+                user.setUserBannerpublicId(updatedUser.getUserBannerpublicId());
+            }
+            
+            System.out.println("User updated: " + user);
             user.setProfileUpdatedAt(new Date());
             iUserRepository.save(user);
         }

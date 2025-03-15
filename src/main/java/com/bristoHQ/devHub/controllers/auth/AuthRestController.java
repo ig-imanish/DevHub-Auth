@@ -22,7 +22,6 @@ import com.bristoHQ.devHub.security.JwtUtilities;
 import com.bristoHQ.devHub.services.UserService;
 import com.bristoHQ.devHub.services.email.OtpService;
 
-import io.swagger.v3.oas.models.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 
@@ -58,10 +57,10 @@ public class AuthRestController {
     @PostMapping("/resend-otp")
     public ResponseEntity<MessageResponseDTO> resendOtp(@RequestBody ResendOtpRequest request) {
         try {
-            UserDTO userDTO = userService.findByEmail(request.getEmail());
-            if(userDTO.isVerified()) {
-                return ResponseEntity.badRequest().body(new MessageResponseDTO(false, "Email already verified", new Date()));
-            }
+            // UserDTO userDTO = userService.findByEmail(request.getEmail());
+            // if(userDTO.isVerified()) {
+            //     return ResponseEntity.badRequest().body(new MessageResponseDTO(false, "Email already verified", new Date()));
+            // }
             otpService.generateAndSendOtp(request.getEmail());
             return ResponseEntity.ok(new MessageResponseDTO(true, "OTP sent to your email", new Date()));
         } catch (Exception e) {

@@ -2,16 +2,13 @@ package com.bristoHQ.devHub.controllers.users.profile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 
-import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +20,7 @@ import com.bristoHQ.devHub.dto.MessageResponseDTO;
 import com.bristoHQ.devHub.dto.UserDTO;
 import com.bristoHQ.devHub.dto.UserProfileUpdateDTO;
 import com.bristoHQ.devHub.services.UserServiceImpl;
+import com.bristoHQ.devHub.services.img.CloudinaryService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,6 +31,9 @@ public class UserProfileUpdateController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
     @PutMapping()
     public ResponseEntity<MessageResponseDTO> postMethodName(@ModelAttribute UserProfileUpdateDTO user, @RequestParam(required = false) MultipartFile banner,
@@ -45,15 +46,29 @@ public class UserProfileUpdateController {
         System.out.println(username);
         
         if (avatar != null) {
-            Binary avatar1 = new Binary(avatar.getBytes());
-            user.setUserAvatar(avatar1);
-            user.setUserAvatarBase64(Base64.getEncoder().encodeToString(avatar.getBytes()));
+            try {
+                Map uploadResultForAvatar = cloudinaryService.uploadImage(avatar);
+                String imageUrlForAvatar = uploadResultForAvatar.get("url").toString();
+                String publicIdForAvatar = uploadResultForAvatar.get("public_id").toString();
+                user.setUserAvatar(imageUrlForAvatar);
+                user.setUserAvatarpublicId(publicIdForAvatar);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         if (banner != null) {
-            Binary banner1 = new Binary(banner.getBytes());
-            user.setUserBanner(banner1);
-            user.setUserBannerBase64(Base64.getEncoder().encodeToString(banner.getBytes()));
+            try {
+                Map uploadResultForBanner = cloudinaryService.uploadImage(avatar);
+                String imageUrlForbanner = uploadResultForBanner.get("url").toString();
+                String publicIdForBanner = uploadResultForBanner.get("public_id").toString();
+                user.setUserAvatar(imageUrlForbanner);
+                user.setUserAvatarpublicId(publicIdForBanner);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
         }
         userService.updateUserDetails(username, user);
         System.out.println("Uploaded " + user);

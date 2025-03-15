@@ -54,6 +54,7 @@ public class SpringSecurityConfig {
                     "/swagger-ui/**", 
                     "/swagger-ui.html", "/api/v1/users/byToken")
                                                 .permitAll()
+                                                .requestMatchers("/api/status").permitAll()
                                                 .requestMatchers("/api/**").authenticated()
 
                                                 .requestMatchers("/api/v1/users/**")

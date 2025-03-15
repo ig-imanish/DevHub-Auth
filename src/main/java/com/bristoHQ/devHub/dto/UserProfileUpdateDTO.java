@@ -25,10 +25,11 @@ public class UserProfileUpdateDTO {
     String username;
     String email;
 
-    private Binary userAvatar;
-    private transient String userAvatarBase64;
-    private Binary userBanner;
-    private transient String userBannerBase64;
+    private String userAvatar;
+    private String userAvatarpublicId;
+
+    private String userBanner;
+    private String userBannerpublicId;
 
     // Social media profile details
     String bio;
