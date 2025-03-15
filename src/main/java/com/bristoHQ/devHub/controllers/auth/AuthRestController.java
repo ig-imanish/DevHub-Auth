@@ -1,5 +1,7 @@
 package com.bristoHQ.devHub.controllers.auth;
 
+import java.util.Date;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,11 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bristoHQ.devHub.dto.BearerToken;
 import com.bristoHQ.devHub.dto.LoginDto;
+import com.bristoHQ.devHub.dto.MessageResponseDTO;
 import com.bristoHQ.devHub.dto.RegisterDto;
+import com.bristoHQ.devHub.dto.ResendOtpRequest;
 import com.bristoHQ.devHub.dto.UserDTO;
+import com.bristoHQ.devHub.dto.VerifyOtpRequest;
 import com.bristoHQ.devHub.security.JwtUtilities;
 import com.bristoHQ.devHub.services.UserService;
+import com.bristoHQ.devHub.services.email.OtpService;
 
+import io.swagger.v3.oas.models.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 
@@ -26,10 +33,40 @@ public class AuthRestController {
 
     private final UserService userService;
     private final JwtUtilities jwtUtilities;
+    private final OtpService otpService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) {
-        return userService.register(registerDto);
+    public ResponseEntity<MessageResponseDTO> register(@RequestBody RegisterDto registerDto) {
+        
+        userService.register(registerDto);
+        otpService.generateAndSendOtp(registerDto.getEmail());
+
+        return ResponseEntity.ok(new MessageResponseDTO(true, "User registered successfully. Please check your email for OTP verification.", new Date()));
+    }
+
+    @PostMapping("/verify-otp")
+    public ResponseEntity<MessageResponseDTO> verifyOtp(@RequestBody VerifyOtpRequest request) {
+        boolean verified = otpService.verifyOtp(request.getEmail(), request.getOtp());
+        
+        if (verified) {
+            return ResponseEntity.ok(new MessageResponseDTO(true, "Email verified successfully", new Date()));
+        } else {
+            return ResponseEntity.badRequest().body(new MessageResponseDTO(false, "Invalid OTP or OTP expired", new Date()));
+        }
+    }
+
+    @PostMapping("/resend-otp")
+    public ResponseEntity<MessageResponseDTO> resendOtp(@RequestBody ResendOtpRequest request) {
+        try {
+            UserDTO userDTO = userService.findByEmail(request.getEmail());
+            if(userDTO.isVerified()) {
+                return ResponseEntity.badRequest().body(new MessageResponseDTO(false, "Email already verified", new Date()));
+            }
+            otpService.generateAndSendOtp(request.getEmail());
+            return ResponseEntity.ok(new MessageResponseDTO(true, "OTP sent to your email", new Date()));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponseDTO(false, e.getMessage(), new Date()));
+        }
     }
 
     @PostMapping("/login")

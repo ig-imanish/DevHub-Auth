@@ -22,6 +22,7 @@ import com.bristoHQ.devHub.dto.BearerToken;
 import com.bristoHQ.devHub.dto.LoginDto;
 import com.bristoHQ.devHub.dto.RegisterDto;
 import com.bristoHQ.devHub.dto.UserDTO;
+import com.bristoHQ.devHub.dto.UserProfileUpdateDTO;
 import com.bristoHQ.devHub.models.BlacklistedToken;
 import com.bristoHQ.devHub.models.User;
 import com.bristoHQ.devHub.models.role.Role;
@@ -69,62 +70,6 @@ public class UserServiceImpl implements UserService {
         return dtoService.convertUserToUserDTO(iUserRepository.save(dtoService.convertUserDTOToUser(user)));
     }
 
-    // @Override
-    // public ResponseEntity<?> register(RegisterDto registerDto) {
-    // if (iUserRepository.existsByEmail(registerDto.getEmail())) {
-    // return new ResponseEntity<>("email is already taken !",
-    // HttpStatus.SEE_OTHER);
-    // }
-    // if (iUserRepository.existsByUsername(registerDto.getUsername())) {
-    // return new ResponseEntity<>("username is already taken !",
-    // HttpStatus.SEE_OTHER);
-    // }
-    // if (registerDto.getUsername().length() < 4 ||
-    // registerDto.getUsername().length() > 20) {
-    // return new ResponseEntity<>("username must be between 4 and 20 characters",
-    // HttpStatus.BAD_REQUEST);
-    // }
-    // if (registerDto.getPassword().length() < 6 ||
-    // registerDto.getPassword().length() > 20) {
-    // return new ResponseEntity<>("password must be between 6 and 20 characters",
-    // HttpStatus.BAD_REQUEST);
-    // }
-    // if (registerDto.getFullName().length() < 4 ||
-    // registerDto.getFullName().length() > 20) {
-    // return new ResponseEntity<>("full name must be between 4 and 20 characters",
-    // HttpStatus.BAD_REQUEST);
-    // }
-    // if (registerDto.getEmail().length() < 4 || registerDto.getEmail().length() >
-    // 20) {
-    // return new ResponseEntity<>("email must be between 4 and 20 characters",
-    // HttpStatus.BAD_REQUEST);
-    // }
-    // if (!registerDto.getUsername().startsWith("@")) {
-    // registerDto.setUsername("@" + registerDto.getUsername());
-    // }
-
-    // User user = new User();
-    // user.setEmail(registerDto.getEmail());
-    // user.setFullName(registerDto.getFullName());
-    // user.setUsername(registerDto.getUsername()); // Fixed the incorrect
-    // assignment
-    // user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-
-    // // Assign role with username
-    // Role role = new Role(RoleName.USER, user.getUsername());
-    // iRoleRepository.save(role); // Save role with username
-
-    // user.setRoles(Collections.singletonList(role));
-    // iUserRepository.save(user);
-
-    // System.out.println("saved user: " + user);
-    // String token = jwtUtilities.generateToken(registerDto.getEmail(),
-    // Collections.singletonList(role.getRoleName()));
-    // return new ResponseEntity<>(new BearerToken(token, "Bearer "),
-    // HttpStatus.OK);
-
-    // }
-
     @Override
     public ResponseEntity<?> register(RegisterDto registerDto) {
         System.out.println("Register method called with: " + registerDto);
@@ -138,25 +83,6 @@ public class UserServiceImpl implements UserService {
             return new ResponseEntity<>("Username is already taken!", HttpStatus.SEE_OTHER);
         }
 
-        // if (registerDto.getUsername().length() <= 3 ||
-        //         registerDto.getUsername().length() > 20) {
-        //     return new ResponseEntity<>("username must be between 3 and 20 characters",
-        //             HttpStatus.BAD_REQUEST);
-        // }
-        // if (registerDto.getPassword().length() <= 6 ||
-        //         registerDto.getPassword().length() > 44) {
-        //     return new ResponseEntity<>("password must be between 6 and 20 characters",
-        //             HttpStatus.BAD_REQUEST);
-        // }
-        // if (registerDto.getFullName().length() <= 3 ||
-        //         registerDto.getFullName().length() > 20) {
-        //     return new ResponseEntity<>("full name must be between 3 and 20 characters",
-        //             HttpStatus.BAD_REQUEST);
-        // }
-        // if (registerDto.getEmail().length() <= 4 || registerDto.getEmail().length() > 20) {
-        //     return new ResponseEntity<>("email must be between 4 and 20 characters",
-        //             HttpStatus.BAD_REQUEST);
-        // }
         if (!registerDto.getUsername().startsWith("@")) {
             registerDto.setUsername("@" + registerDto.getUsername());
         }
@@ -297,9 +223,13 @@ public class UserServiceImpl implements UserService {
         return jwtUtilities.generateToken(user.getUsername(), rolesNames);
     }
 
-    public UserDTO updateUsername(String oldUsername, String newUsername){
+    @Override
+    public UserDTO updateUsername(String oldUsername, String newUsername) {
+        if(iUserRepository.findByUsername(newUsername).isPresent()){
+            return null;
+        }
         Optional<User> user = iUserRepository.findByUsername(oldUsername);
-        if(user.isPresent()){
+        if (user.isPresent()) {
             user.get().setUsername(newUsername);
             updateUsernameInRole(newUsername);
             saveUser(user.get());
@@ -308,22 +238,88 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    public UserDTO updateEmail(String newEmail){
-        Optional<User> user = iUserRepository.findByUsername(newEmail);
-        if(user.isPresent()){
+    @Override
+    public UserDTO updateEmail(String usernameOrEmail, String newEmail) {
+        if(iUserRepository.findByEmail(newEmail).isPresent()){
+            return null;
+        }
+        Optional<User> user = iUserRepository.findByEmailOrUsername(usernameOrEmail, usernameOrEmail);
+        if (user.isPresent()) {
             user.get().setEmail(newEmail);
+            saveUser(user.get());
             return dtoService.convertUserToUserDTO(user.get());
         }
         return null;
     }
 
-    public Role updateUsernameInRole(String username){
+    @Override
+    public Role updateUsernameInRole(String username) {
         Optional<User> user = iUserRepository.findByUsername(username);
-        if(user.isPresent()){
+        if (user.isPresent()) {
             Role role = user.get().getRoles().get(0);
             role.setUsername(user.get().getUsername());
             return iRoleRepository.save(role);
         }
         return null;
+    }
+
+    @Override
+    public void updateUserDetails(String username, UserProfileUpdateDTO updatedUser) {
+        Optional<User> userOptional = iUserRepository.findByUsername(username);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            if (updatedUser.getFullName() != null) {
+                user.setFullName(updatedUser.getFullName());
+            }
+            if (updatedUser.getUsername() != null) {
+                user.setUsername(updatedUser.getUsername());
+            }
+            if (updatedUser.getEmail() != null) {
+                user.setEmail(updatedUser.getEmail());
+            }
+            if (updatedUser.getUserAvatar() != null) {
+                user.setUserAvatar(updatedUser.getUserAvatar());
+            }
+            if (updatedUser.getUserBanner() != null) {
+                user.setUserBanner(updatedUser.getUserBanner());
+            }
+            if (updatedUser.getBio() != null) {
+                user.setBio(updatedUser.getBio());
+            }
+            if (updatedUser.getCountryName() != null) {
+                user.setCountryName(updatedUser.getCountryName());
+            }
+            if (updatedUser.getCity() != null) {
+                user.setCity(updatedUser.getCity());
+            }
+            if (updatedUser.getRecoveryPhone() != null) {
+                user.setRecoveryPhone(updatedUser.getRecoveryPhone());
+            }
+            if (updatedUser.getRecoveryEmail() != null) {
+                user.setRecoveryEmail(updatedUser.getRecoveryEmail());
+            }
+            if (updatedUser.getSocialLinks() != null) {
+                user.setSocialLinks(updatedUser.getSocialLinks());
+            }
+            if (updatedUser.getJobTitle() != null) {
+                user.setJobTitle(updatedUser.getJobTitle());
+            }
+            if (updatedUser.getCompany() != null) {
+                user.setCompany(updatedUser.getCompany());
+            }
+            if (updatedUser.getWebsite() != null) {
+                user.setWebsite(updatedUser.getWebsite());
+            }
+            if (updatedUser.getBirthDate() != null) {
+                user.setBirthDate(updatedUser.getBirthDate());
+            }
+            if (updatedUser.getGender() != null) {
+                user.setGender(updatedUser.getGender());
+            }
+            user.setProfileUpdatedAt(new Date());
+            iUserRepository.save(user);
+        }
     }
 }

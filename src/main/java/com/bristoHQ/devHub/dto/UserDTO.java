@@ -1,5 +1,6 @@
 package com.bristoHQ.devHub.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,10 @@ public class UserDTO {
     private RedeemCode redeemCode;
 
     private Date accountCreatedAt;
+    // Email verification
+    private boolean verified = false;
+    private String otp;
+    private LocalDateTime otpGeneratedTime;
 
     public UserDTO(String username, String email,List<Role> roles) {
         this.username = username;

@@ -11,11 +11,13 @@ public class GlobalExceptionController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> exception(Exception ex) {
+        System.out.println("Exception: " + ex.getMessage());
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<String> handleUserNotFoundException(NoHandlerFoundException ex) {
+        System.out.println("NoHandlerFoundException: " + ex.getMessage());
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 

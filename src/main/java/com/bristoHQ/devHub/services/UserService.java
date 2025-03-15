@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import com.bristoHQ.devHub.dto.LoginDto;
 import com.bristoHQ.devHub.dto.RegisterDto;
 import com.bristoHQ.devHub.dto.UserDTO;
+import com.bristoHQ.devHub.dto.UserProfileUpdateDTO;
 import com.bristoHQ.devHub.models.User;
 import com.bristoHQ.devHub.models.role.Role;
 
@@ -51,4 +52,12 @@ public interface UserService {
   public UserDTO saveUser(UserDTO user);
 
   public String newJwtToken(String emailOrUsername);
+
+  public void updateUserDetails(String username, UserProfileUpdateDTO updatedUser);
+
+  public UserDTO updateUsername(String oldUsername, String newUsername);
+
+  public UserDTO updateEmail(String usernameOrEmail, String newEmail) ;
+
+  public Role updateUsernameInRole(String username);
 }

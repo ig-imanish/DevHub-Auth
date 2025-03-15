@@ -1,10 +1,13 @@
 package com.bristoHQ.devHub.models;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -40,17 +43,55 @@ public class User implements UserDetails {
 
     List<Role> roles;
 
+    private Binary userAvatar;
+    private transient String userAvatarBase64;
+    private Binary userBanner;
+    private transient String userBannerBase64;
+
+    // Social media profile details
+    String bio;
+    String countryName;
+    String city;
+    String recoveryPhone;
+    String recoveryEmail;
+
+    // Social media links
+    Map<String, String> socialLinks; // e.g., {"twitter": "https://twitter.com/username", "github":
+                                     // "https://github.com/username"}
+
+    // Additional profile data
+    String jobTitle;
+    String company;
+    String website;
+    Date birthDate;
+    String gender;
+
+    // Account stats
+    int followersCount;
+    int followingCount;
+    List<String> followers;
+    List<String> following;
+
     String provider;
     private boolean isPremium;
     private RedeemCode redeemCode;
 
     private Date accountCreatedAt;
+    private Date lastActiveAt;
+    private Date profileUpdatedAt;
+
+    // Email verification
+    private boolean verified = false;
+    private String otp;
+    private LocalDateTime otpGeneratedTime;
 
     public User(String username, String email, String password, List<Role> roles) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.accountCreatedAt = new Date();
+        this.lastActiveAt = new Date();
     }
 
     @Override
@@ -83,5 +124,44 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    // Helper methods for profile management
+    public void updateLastActive() {
+        this.lastActiveAt = new Date();
+    }
+
+    public void addFollower(String userId) {
+        if (this.followers == null) {
+            this.followers = new ArrayList<>();
+        }
+        if (!this.followers.contains(userId)) {
+            this.followers.add(userId);
+            this.followersCount = this.followers.size();
+        }
+    }
+
+    public void removeFollower(String userId) {
+        if (this.followers != null && this.followers.contains(userId)) {
+            this.followers.remove(userId);
+            this.followersCount = this.followers.size();
+        }
+    }
+
+    public void follow(String userId) {
+        if (this.following == null) {
+            this.following = new ArrayList<>();
+        }
+        if (!this.following.contains(userId)) {
+            this.following.add(userId);
+            this.followingCount = this.following.size();
+        }
+    }
+
+    public void unfollow(String userId) {
+        if (this.following != null && this.following.contains(userId)) {
+            this.following.remove(userId);
+            this.followingCount = this.following.size();
+        }
     }
 }
