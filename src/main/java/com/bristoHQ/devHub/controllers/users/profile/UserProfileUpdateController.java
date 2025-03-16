@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bristoHQ.devHub.dto.BearerToken;
 import com.bristoHQ.devHub.dto.MessageResponseDTO;
-import com.bristoHQ.devHub.dto.UserDTO;
-import com.bristoHQ.devHub.dto.UserProfileUpdateDTO;
-import com.bristoHQ.devHub.services.UserServiceImpl;
-import com.bristoHQ.devHub.services.img.CloudinaryService;
+import com.bristoHQ.devHub.dto.auth.BearerToken;
+import com.bristoHQ.devHub.dto.user.UserDTO;
+import com.bristoHQ.devHub.dto.user.UserProfileUpdateDTO;
+import com.bristoHQ.devHub.services.storage.CloudinaryService;
+import com.bristoHQ.devHub.services.user.UserServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,6 +35,7 @@ public class UserProfileUpdateController {
     @Autowired
     private CloudinaryService cloudinaryService;
 
+    @SuppressWarnings("rawtypes")
     @PutMapping()
     public ResponseEntity<MessageResponseDTO> postMethodName(@ModelAttribute UserProfileUpdateDTO user, @RequestParam(required = false) MultipartFile banner,
             @RequestParam(required = false) MultipartFile avatar, Principal principal) throws IOException {

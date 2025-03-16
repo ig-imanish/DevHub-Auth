@@ -1,4 +1,4 @@
-package com.bristoHQ.devHub.dto;
+package com.bristoHQ.devHub.dto.otp;
 
 import lombok.Data;
 

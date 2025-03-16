@@ -1,4 +1,4 @@
-package com.bristoHQ.devHub.services;
+package com.bristoHQ.devHub.services.role;
 
 import java.util.List;
 

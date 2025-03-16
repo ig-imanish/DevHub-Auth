@@ -1,9 +1,7 @@
-package com.bristoHQ.devHub.dto;
+package com.bristoHQ.devHub.dto.user;
 
 import java.util.Date;
 import java.util.Map;
-
-import org.bson.types.Binary;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

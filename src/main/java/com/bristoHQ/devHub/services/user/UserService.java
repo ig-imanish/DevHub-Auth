@@ -1,13 +1,13 @@
-package com.bristoHQ.devHub.services;
+package com.bristoHQ.devHub.services.user;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.bristoHQ.devHub.dto.LoginDto;
-import com.bristoHQ.devHub.dto.RegisterDto;
-import com.bristoHQ.devHub.dto.UserDTO;
-import com.bristoHQ.devHub.dto.UserProfileUpdateDTO;
+import com.bristoHQ.devHub.dto.auth.LoginDto;
+import com.bristoHQ.devHub.dto.auth.RegisterDto;
+import com.bristoHQ.devHub.dto.user.UserDTO;
+import com.bristoHQ.devHub.dto.user.UserProfileUpdateDTO;
 import com.bristoHQ.devHub.models.User;
 import com.bristoHQ.devHub.models.role.Role;
 

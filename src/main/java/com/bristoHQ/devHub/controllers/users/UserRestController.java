@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bristoHQ.devHub.dto.BearerToken;
 import com.bristoHQ.devHub.dto.MessageResponseDTO;
-import com.bristoHQ.devHub.dto.UserDTO;
-import com.bristoHQ.devHub.services.PremiumService;
-import com.bristoHQ.devHub.services.UserServiceImpl;
+import com.bristoHQ.devHub.dto.auth.BearerToken;
+import com.bristoHQ.devHub.dto.user.UserDTO;
+import com.bristoHQ.devHub.services.premium.PremiumService;
+import com.bristoHQ.devHub.services.user.UserServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.bristoHQ.devHub.dto;
+package com.bristoHQ.devHub.dto.user;
 
 import java.time.LocalDateTime;
 import java.util.Date;

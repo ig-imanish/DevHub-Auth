@@ -27,7 +27,10 @@ public interface UserRepository extends MongoRepository<User, Integer> {
     Boolean existsByEmailOrUsername(String email, String username);
 
     List<User> findByIsPremium(boolean isPremium);
+
     Optional<User> findByUsernameAndIsPremium(String username, boolean isPremium);
+
     Optional<User> findByEmailAndIsPremium(String email, boolean isPremium);
+
     Optional<User> findByEmailOrUsernameAndIsPremium(String email, String username, boolean isPremium);
 }

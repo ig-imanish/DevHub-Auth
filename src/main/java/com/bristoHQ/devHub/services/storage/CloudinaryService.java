@@ -1,4 +1,4 @@
-package com.bristoHQ.devHub.services.img;
+package com.bristoHQ.devHub.services.storage;
 
 import java.io.IOException;
 import java.util.Map;
@@ -17,11 +17,13 @@ public class CloudinaryService {
     private Cloudinary cloudinary;
 
     // Upload Image
+    @SuppressWarnings("rawtypes")
     public Map uploadImage(MultipartFile file) throws IOException {
         return cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
     }
 
     // Delete Image
+    @SuppressWarnings("rawtypes")
     public Map deleteImage(String publicId) throws IOException {
         return cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
     }

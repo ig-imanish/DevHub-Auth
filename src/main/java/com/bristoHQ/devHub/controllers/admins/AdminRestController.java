@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bristoHQ.devHub.dto.UserDTO;
+import com.bristoHQ.devHub.dto.user.UserDTO;
 import com.bristoHQ.devHub.models.role.Role;
 import com.bristoHQ.devHub.models.role.RoleName;
-import com.bristoHQ.devHub.services.RoleService;
-import com.bristoHQ.devHub.services.UserService;
+import com.bristoHQ.devHub.services.role.RoleService;
+import com.bristoHQ.devHub.services.user.UserService;
 
 import lombok.AllArgsConstructor;
 

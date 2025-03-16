@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -43,11 +42,11 @@ public class User implements UserDetails {
 
     List<Role> roles;
 
-    private String userAvatar;
-    private String userAvatarpublicId;
+    String userAvatar;
+    String userAvatarpublicId;
 
-    private String userBanner;
-    private String userBannerpublicId;
+    String userBanner;
+    String userBannerpublicId;
 
     // Social media profile details
     String bio;
@@ -57,8 +56,7 @@ public class User implements UserDetails {
     String recoveryEmail;
 
     // Social media links
-    Map<String, String> socialLinks; // e.g., {"twitter": "https://twitter.com/username", "github":
-                                     // "https://github.com/username"}
+    Map<String, String> socialLinks;
 
     // Additional profile data
     String jobTitle;
@@ -74,17 +72,17 @@ public class User implements UserDetails {
     List<String> following;
 
     String provider;
-    private boolean isPremium;
-    private RedeemCode redeemCode;
+    boolean isPremium;
+    RedeemCode redeemCode;
 
-    private Date accountCreatedAt;
-    private Date lastActiveAt;
-    private Date profileUpdatedAt;
+    Date accountCreatedAt;
+    Date lastActiveAt;
+    Date profileUpdatedAt;
 
     // Email verification
-    private boolean verified = false;
-    private String otp;
-    private LocalDateTime otpGeneratedTime;
+    boolean verified = false;
+    String otp;
+    LocalDateTime otpGeneratedTime;
 
     public User(String username, String email, String password, List<Role> roles) {
         this.username = username;

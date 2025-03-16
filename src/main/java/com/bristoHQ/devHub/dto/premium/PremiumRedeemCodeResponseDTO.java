@@ -1,4 +1,4 @@
-package com.bristoHQ.devHub.dto;
+package com.bristoHQ.devHub.dto.premium;
 
 import java.util.Date;
 

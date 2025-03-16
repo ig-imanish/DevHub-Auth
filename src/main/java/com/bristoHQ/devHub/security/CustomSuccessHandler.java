@@ -12,10 +12,11 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.bristoHQ.devHub.dto.RegisterDto;
-import com.bristoHQ.devHub.dto.UserDTO;
+import com.bristoHQ.devHub.dto.auth.RegisterDto;
+import com.bristoHQ.devHub.dto.user.UserDTO;
 import com.bristoHQ.devHub.repositories.UserRepository;
-import com.bristoHQ.devHub.services.UserServiceImpl;
+import com.bristoHQ.devHub.security.jwt.JwtUtilities;
+import com.bristoHQ.devHub.services.user.UserServiceImpl;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

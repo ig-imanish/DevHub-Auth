@@ -1,4 +1,4 @@
-package com.bristoHQ.devHub.dto;
+package com.bristoHQ.devHub.dto.auth;
 
 import lombok.AccessLevel;
 import lombok.Data;

@@ -1,15 +1,18 @@
-package com.bristoHQ.devHub.security;
+package com.bristoHQ.devHub.security.jwt;
 
 
 
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 
+import com.bristoHQ.devHub.repositories.BlacklistedTokenRepository;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -21,12 +24,14 @@ import java.util.function.Function;
 @Component
 public class JwtUtilities{
 
-
     @Value("${jwt.secret}")
     private String secret;
 
     @Value("${jwt.expiration}")
     private Long jwtExpiration;
+
+    @Autowired
+    private BlacklistedTokenRepository blacklistedTokenRepository;
 
 
     public String extractUsername(String token) {
@@ -57,6 +62,9 @@ public class JwtUtilities{
     }
 
     public boolean validateToken(String token) {
+        if(blacklistedTokenRepository.existsByToken(token)) {
+            return false;
+        }
         try {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             return true;

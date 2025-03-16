@@ -1,4 +1,4 @@
-package com.bristoHQ.devHub.services;
+package com.bristoHQ.devHub.services.user;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -18,19 +18,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bristoHQ.devHub.dto.BearerToken;
-import com.bristoHQ.devHub.dto.LoginDto;
-import com.bristoHQ.devHub.dto.RegisterDto;
-import com.bristoHQ.devHub.dto.UserDTO;
-import com.bristoHQ.devHub.dto.UserProfileUpdateDTO;
-import com.bristoHQ.devHub.models.BlacklistedToken;
+import com.bristoHQ.devHub.dto.auth.BearerToken;
+import com.bristoHQ.devHub.dto.auth.LoginDto;
+import com.bristoHQ.devHub.dto.auth.RegisterDto;
+import com.bristoHQ.devHub.dto.user.UserDTO;
+import com.bristoHQ.devHub.dto.user.UserProfileUpdateDTO;
 import com.bristoHQ.devHub.models.User;
+import com.bristoHQ.devHub.models.auth.BlacklistedToken;
 import com.bristoHQ.devHub.models.role.Role;
 import com.bristoHQ.devHub.models.role.RoleName;
 import com.bristoHQ.devHub.repositories.BlacklistedTokenRepository;
 import com.bristoHQ.devHub.repositories.RoleRepository;
 import com.bristoHQ.devHub.repositories.UserRepository;
-import com.bristoHQ.devHub.security.JwtUtilities;
+import com.bristoHQ.devHub.security.jwt.JwtUtilities;
+import com.bristoHQ.devHub.services.mapper.UserDTOMapper;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
     private JwtUtilities jwtUtilities;
 
     @Autowired
-    private DTOService dtoService;
+    private UserDTOMapper dtoService;
 
     @Autowired
     private BlacklistedTokenRepository blacklistedTokenRepository;
@@ -225,7 +226,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateUsername(String oldUsername, String newUsername) {
-        if(iUserRepository.findByUsername(newUsername).isPresent()){
+        if (iUserRepository.findByUsername(newUsername).isPresent()) {
             return null;
         }
         Optional<User> user = iUserRepository.findByUsername(oldUsername);
@@ -240,7 +241,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateEmail(String usernameOrEmail, String newEmail) {
-        if(iUserRepository.findByEmail(newEmail).isPresent()){
+        if (iUserRepository.findByEmail(newEmail).isPresent()) {
             return null;
         }
         Optional<User> user = iUserRepository.findByEmailOrUsername(usernameOrEmail, usernameOrEmail);
@@ -325,14 +326,14 @@ public class UserServiceImpl implements UserService {
             if (updatedUser.getUserAvatarpublicId() != null) {
                 user.setUserAvatarpublicId(updatedUser.getUserAvatarpublicId());
             }
-            
+
             if (updatedUser.getUserBanner() != null) {
                 user.setUserBanner(updatedUser.getUserBanner());
             }
             if (updatedUser.getUserBannerpublicId() != null) {
                 user.setUserBannerpublicId(updatedUser.getUserBannerpublicId());
             }
-            
+
             System.out.println("User updated: " + user);
             user.setProfileUpdatedAt(new Date());
             iUserRepository.save(user);

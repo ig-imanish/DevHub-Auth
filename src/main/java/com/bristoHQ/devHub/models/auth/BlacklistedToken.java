@@ -1,4 +1,4 @@
-package com.bristoHQ.devHub.models;
+package com.bristoHQ.devHub.models.auth;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

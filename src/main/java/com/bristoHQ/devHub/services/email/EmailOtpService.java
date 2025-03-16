@@ -13,7 +13,7 @@ import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
-public class OtpService {
+public class EmailOtpService {
 
     private final UserRepository userRepository;
     private final EmailService emailService;

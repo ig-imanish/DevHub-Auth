@@ -1,4 +1,4 @@
-package com.bristoHQ.devHub.services.img;
+package com.bristoHQ.devHub.security.config;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,14 +1,14 @@
-package com.bristoHQ.devHub.services;
+package com.bristoHQ.devHub.services.mapper;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.bristoHQ.devHub.dto.UserDTO;
+import com.bristoHQ.devHub.dto.user.UserDTO;
 import com.bristoHQ.devHub.models.User;
 
 @Service
-public class DTOService {
+public class UserDTOMapper {
     
     public UserDTO convertUserToUserDTO(User user) {
 
@@ -101,7 +101,7 @@ public class DTOService {
     }
 
     public List<UserDTO> convertUserToUserDTO(List<User> all) {
-        if(all != null){
+        if(all == null){
             return null;
         }
         for(User user : all) {

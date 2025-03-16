@@ -1,13 +1,15 @@
-package com.bristoHQ.devHub.services;
+package com.bristoHQ.devHub.services.premium;
 
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
 import com.bristoHQ.devHub.dto.MessageResponseDTO;
-import com.bristoHQ.devHub.dto.UserDTO;
+import com.bristoHQ.devHub.dto.user.UserDTO;
 import com.bristoHQ.devHub.models.premium.RedeemCode;
 import com.bristoHQ.devHub.repositories.RedeemCodeRepository;
+import com.bristoHQ.devHub.services.mapper.UserDTOMapper;
+import com.bristoHQ.devHub.services.user.UserServiceImpl;
 
 import lombok.AllArgsConstructor;
 
@@ -17,7 +19,7 @@ public class PremiumService {
 
     private UserServiceImpl userService;
     private RedeemCodeRepository redeemCodeRepository;
-    private DTOService dtoService;
+    private UserDTOMapper dtoService;
 
     public MessageResponseDTO redeemPremium(String code, String emailOrUsername) {
 

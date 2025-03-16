@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bristoHQ.devHub.dto.PremiumRedeemCodeResponseDTO;
+import com.bristoHQ.devHub.dto.premium.PremiumRedeemCodeResponseDTO;
 import com.bristoHQ.devHub.helper.GenRedeemCode;
 import com.bristoHQ.devHub.models.premium.RedeemCode;
 import com.bristoHQ.devHub.repositories.RedeemCodeRepository;

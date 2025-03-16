@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bristoHQ.devHub.dto.BearerToken;
-import com.bristoHQ.devHub.dto.LoginDto;
 import com.bristoHQ.devHub.dto.MessageResponseDTO;
-import com.bristoHQ.devHub.dto.RegisterDto;
-import com.bristoHQ.devHub.dto.ResendOtpRequest;
-import com.bristoHQ.devHub.dto.UserDTO;
-import com.bristoHQ.devHub.dto.VerifyOtpRequest;
-import com.bristoHQ.devHub.security.JwtUtilities;
-import com.bristoHQ.devHub.services.UserService;
-import com.bristoHQ.devHub.services.email.OtpService;
+import com.bristoHQ.devHub.dto.auth.BearerToken;
+import com.bristoHQ.devHub.dto.auth.LoginDto;
+import com.bristoHQ.devHub.dto.auth.RegisterDto;
+import com.bristoHQ.devHub.dto.otp.ResendOtpRequest;
+import com.bristoHQ.devHub.dto.otp.VerifyOtpRequest;
+import com.bristoHQ.devHub.dto.user.UserDTO;
+import com.bristoHQ.devHub.security.jwt.JwtUtilities;
+import com.bristoHQ.devHub.services.email.EmailOtpService;
+import com.bristoHQ.devHub.services.user.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ public class AuthRestController {
 
     private final UserService userService;
     private final JwtUtilities jwtUtilities;
-    private final OtpService otpService;
+    private final EmailOtpService otpService;
 
     @PostMapping("/register")
     public ResponseEntity<MessageResponseDTO> register(@RequestBody RegisterDto registerDto) {
