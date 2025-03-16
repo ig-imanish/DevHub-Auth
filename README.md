@@ -1,3 +1,31 @@
+# Project Docs
+
+This document provides an overview of the system design for the project. Below are the architecture diagrams and links related to the project.
+
+## System Design Diagram
+
+### Black JPG
+![System Design](../BristoHQAuthRest/assest/DevHub-Arch-BJPG.png)
+
+### White PNG
+![System Design](../BristoHQAuthRest/assest/DevHub-Arch-JPG.png)
+
+### White JPG
+![System Design](../BristoHQAuthRest/assest/DevHub-Arch-WJPG.png)
+
+## Links
+- **Excalidraw File**: [Open in Excalidraw](https://excalidraw.com/#json=fyvpEU-SRHMtxJfMtVA2H,PETxU7fGsIY9EO_3ApZUHg)
+- **Repository**: [GitHub Repository](https://github.com/ig-imanish/DevHub-Auth)
+
+## Description
+The system is designed with a scalable architecture, featuring:
+- **Microservices Architecture**
+- **Database (MongoDB/MySQL)**
+- **Authentication (JWT/OAuth2)**
+- **Frontend (React.js)**
+- **Backend (Spring Boot)**
+
+
 # API Documentation
 
 ## User Authentication & Management
@@ -168,3 +196,16 @@ All APIs return responses in the following standard format:
   "success": true or false
 }
 ```
+
+## Contribute
+We welcome contributions from the community! If you would like to contribute, follow these steps:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Commit your changes (`git commit -m "Added new feature"`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Open a Pull Request.
+
+### Or Contact us to join!
+**email:** `hire@bristohq.me`
+
+Feel free to open an issue for discussions or feature requests. Happy coding! 🚀
