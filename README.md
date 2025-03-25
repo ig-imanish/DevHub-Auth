@@ -5,7 +5,7 @@ This document provides an overview of the system design for the project. Below a
 ## System Design Diagram
 
 ### Black JPG
-![System Design](../BristoHQAuthRest/assest/DevHub-Arch-BJPG.png)
+![System Design](https://github.com/ig-imanish/DevHub-Auth/blob/73a16bf9d8aa3a3d9e70802b6550521690cad4aa/assest/DevHub-Arch-BJPG.png)
 
 ### White PNG
 ![System Design](../BristoHQAuthRest/assest/DevHub-Arch-JPG.png)
