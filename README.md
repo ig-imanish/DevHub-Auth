@@ -11,7 +11,7 @@ This document provides an overview of the system design for the project. Below a
 ![System Design](../BristoHQAuthRest/assest/DevHub-Arch-JPG.png)
 
 ### White JPG
-![System Design](../BristoHQAuthRest/assest/DevHub-Arch-WJPG.png)
+![System Design](https://github.com/ig-imanish/DevHub-Auth/blob/167dc08b4ef14009a9bfe0b3810cf040d1a09e7f/assest/DevHub-Arch-WJPG.png)
 
 ## Links
 - **Excalidraw File**: [Open in Excalidraw](https://excalidraw.com/#json=fyvpEU-SRHMtxJfMtVA2H,PETxU7fGsIY9EO_3ApZUHg)
