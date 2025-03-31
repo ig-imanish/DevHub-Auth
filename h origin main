@@ -1,0 +1,16 @@
+*   [33mba7d8c5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Merge branch 'main' of github.com:ig-imanish/DevHub-Auth
+[31m|[m[32m\[m  
+[31m|[m * [33m60516cb[m Update README.md
+[31m|[m * [33mcc123ff[m Update README.md
+[31m|[m * [33m167dc08[m Update README.md
+* [32m|[m [33m6d8f2db[m fixed some known bugs and added docker
+[32m|[m[32m/[m  
+* [33m73a16bf[m docs: added project architecture and contribution guidelines to README
+* [33m8c87825[m Fixed known bugs and improved project structure by organizing files into appropriate folders.
+* [33m8280271[m[33m ([m[1;32mbackup[m[33m)[m fixed some bug & added CLOUDINARY for img hosting
+* [33m626b84c[m added email verification by sending otp to email
+* [33md295976[m fixed google auth and added to update username
+* [33m63cd101[m Added .env and application.properties to .gitignore
+* [33m5dc2853[m Removed secrets and updated .gitignore
+* [33m41e6c7f[m Added .env and application.properties to .gitignore
+* [33mac4a727[m Initial commit
