@@ -39,7 +39,7 @@ public class SpringSecurityConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOrigins(List.of("http://localhost:5500")); // Change to match frontend URL
+        corsConfig.setAllowedOrigins(List.of("*")); // Change to match frontend URL
         corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         corsConfig.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         corsConfig.setAllowCredentials(true); // Allow cookies
@@ -54,13 +54,13 @@ public class SpringSecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/css/**", "/js/**", "/images/**",
-                                "/login", "/register", "/error", "/auth/oauth/login", "/oauth-success",
+                        .requestMatchers("/api/v1/auth/**", "/css/**", "/js/**", "/images/**",
+                                 "/error", 
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html", "/api/v1/users/byToken")
                         .permitAll()
-                        .requestMatchers("/api/status").permitAll()
+                        .requestMatchers("/api/auth/public", "/api/users/public").permitAll()
                         .requestMatchers("/api/**").authenticated()
 
                         .requestMatchers("/api/v1/users/**")
@@ -105,7 +105,7 @@ public class SpringSecurityConfig {
 
     @Bean
     public AuthenticationEntryPoint unauthorizedHandler() {
-        return (request, response, authException) -> {
+        return (request, response, error) -> {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("{\"error\": \"Unauthorized\", \"message\": \"You need to log in first.\"}");

@@ -40,6 +40,6 @@ public class CustomerUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
-                Collections.singleton(new SimpleGrantedAuthority(user.getRoles().getFirst().getRoleName())));
+                Collections.singleton(new SimpleGrantedAuthority(user.getRoles().get(0).getRoleName())));
     }
 }

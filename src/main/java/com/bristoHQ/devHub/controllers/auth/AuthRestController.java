@@ -2,6 +2,7 @@ package com.bristoHQ.devHub.controllers.auth;
 
 import java.util.Date;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import com.bristoHQ.devHub.dto.MessageResponseDTO;
 import com.bristoHQ.devHub.dto.auth.BearerToken;
 import com.bristoHQ.devHub.dto.auth.LoginDto;
 import com.bristoHQ.devHub.dto.auth.RegisterDto;
+import com.bristoHQ.devHub.dto.auth.TokenResponse;
 import com.bristoHQ.devHub.dto.otp.ResendOtpRequest;
 import com.bristoHQ.devHub.dto.otp.VerifyOtpRequest;
 import com.bristoHQ.devHub.dto.user.UserDTO;
@@ -26,7 +28,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 @AllArgsConstructor
 public class AuthRestController {
 
@@ -89,7 +91,7 @@ public class AuthRestController {
         return ResponseEntity.ok("Logout successful, token blacklisted!");
     }
 
-    @GetMapping("/isAuthenticated")
+    @GetMapping("/isLogin")
     public ResponseEntity<Boolean> isAuthenticatedByToken(@RequestHeader("Authorization") String token) {
         // Extract token value from "Bearer <token>"
         String actualToken = token.startsWith("Bearer ") ? token.substring(7) : token;
@@ -97,4 +99,20 @@ public class AuthRestController {
         return ResponseEntity.ok(user != null);
     }
 
+    @PostMapping("/validateToken")
+    public ResponseEntity<TokenResponse> validateToken(@RequestHeader("Authorization") String authHeader) {
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+             // Extract token value from "Bearer <token>"
+        String actualToken = token.startsWith("Bearer ") ? token.substring(7) : token;
+        UserDTO user = userService.getUserDetails(actualToken);
+        if(user != null){
+            userService.isUserExist(user.getEmail());
+            return ResponseEntity.ok(new TokenResponse(user.getEmail(), HttpStatus.OK));
+        }
+        System.out.println("hello");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new TokenResponse(null, HttpStatus.UNAUTHORIZED));
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new TokenResponse(null, HttpStatus.UNAUTHORIZED));
+    }
 }

@@ -339,4 +339,9 @@ public class UserServiceImpl implements UserService {
             iUserRepository.save(user);
         }
     }
+
+    @Override
+    public boolean isUserExist(String email){
+        return iUserRepository.existsByEmail(email);
+    }
 }

@@ -60,4 +60,6 @@ public interface UserService {
   public UserDTO updateEmail(String usernameOrEmail, String newEmail) ;
 
   public Role updateUsernameInRole(String username);
+
+  public boolean isUserExist(String email);
 }
