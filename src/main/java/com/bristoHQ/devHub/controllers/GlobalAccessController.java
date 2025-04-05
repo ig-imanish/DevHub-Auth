@@ -12,9 +12,4 @@ public class GlobalAccessController {
     public String publicAccessAuth() {
         return "Service is up Auth";
     }
-
-    @GetMapping("/users/public")
-    public String publicAccessUsers() {
-        return "Service is up Users";
-    }
 }

@@ -58,9 +58,10 @@ public class SpringSecurityConfig {
                                  "/error", 
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html", "/api/v1/users/byToken")
+                                "/swagger-ui.html", "/api/v1/users/byToken" , "/login/oauth2/code/google",
+                                "/api/v1/public/users/**")
                         .permitAll()
-                        .requestMatchers("/api/auth/public", "/api/users/public").permitAll()
+                        .requestMatchers("/api/v1/auth/public").permitAll()
                         .requestMatchers("/api/**").authenticated()
 
                         .requestMatchers("/api/v1/users/**")

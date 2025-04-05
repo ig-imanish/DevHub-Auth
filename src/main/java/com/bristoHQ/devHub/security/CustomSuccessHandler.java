@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -33,6 +34,9 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Autowired
 	private JwtUtilities jwtUtilities;
+
+	@Value("${oauth.success.url}")
+	private String oauthSuccessUrl;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -74,7 +78,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
 		System.out.println("Jwt Token for " + user.getEmail() + "  : " + token);
 		// Redirect user to frontend with token
-		String redirectUrl = "http://localhost:5500/index.html?token=" + URLEncoder.encode(token, "UTF-8");
+		String redirectUrl = oauthSuccessUrl + "?token=" + URLEncoder.encode(token, "UTF-8");
 		// String redirectUrl = "http://localhost:8080/api/v1/users/info";
 
 		System.out.println("Redirecting to: " + redirectUrl);

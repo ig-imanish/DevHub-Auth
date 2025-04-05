@@ -1,6 +1,7 @@
 package com.bristoHQ.devHub.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.bristoHQ.devHub.models.User;
 import com.bristoHQ.devHub.models.role.Role;
